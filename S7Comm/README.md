@@ -60,7 +60,7 @@ Rebuild the Docker image **after every change to the project files**.
 Run the container with a shell:
 
 ``` bash
-docker run -it   --entrypoint /bin/sh   --network host   --cap-add=NET_ADMIN   --cap-add=NET_RAW s7comm
+sudo docker run -it   --entrypoint /bin/sh   --network host   --cap-add=NET_ADMIN   --cap-add=NET_RAW s7comm
 ```
 
 Inside the container, list the available interfaces:
@@ -130,7 +130,7 @@ Rebuild the Docker image **after every change to the project files**.
 ## 8. Run the Sniffer
 
 ``` bash
-docker run -it   --network host   --cap-add=NET_ADMIN   --cap-add=NET_RAW s7comm
+sudo docker run -it   --network host   --cap-add=NET_ADMIN   --cap-add=NET_RAW s7comm
 ```
 
 The sniffer will now **capture S7Comm communication and forward the data to the OPC UA server**.
