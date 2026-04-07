@@ -91,7 +91,7 @@ exit
 
 ## 6. Configure start.sh
 
-1. Open the file `start.sh`. 
+1. Open the file `sniffer_start.sh`. 
 
 2. Modify the `OPC UA endpoint` and `network interface number` as needed.
 
