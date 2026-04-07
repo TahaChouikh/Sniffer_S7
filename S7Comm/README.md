@@ -8,7 +8,7 @@ This project monitors **S7Comm communication** and forwards the extracted values
 
 ## 1. Get the IP Addresses
 
-First, determine the **IP addresses of the PLC and the HMI**.
+First, determine the **IP addresses of the PLC and the HMI** using Tia Portal or Wireshark.
 
 ------------------------------------------------------------------------
 
@@ -108,8 +108,8 @@ You can add other arguments as needed. The available arguments are:
   --iface NUM            : Network interface number for capturing
   --pcap FILE            : Use a PCAP file instead of live capture
   --debug                : Enable verbose terminal output
-  --list-cases           : Show available special-case mappings
-  --case NAME            : Select special case (anlage, test, etc.)
+  --list-all-PLCs        : Show all predefined PLCs
+  --mapping NAME         : Select a predefined PLC mapping to convert raw addresses into human-readable labels. 
   --opcua-endpoint URL   : OPC UA endpoint
   --tshark PATH          : Path to tshark binary (not required in Docker)
   --only-changes         : Only display and publish changed values
@@ -162,13 +162,13 @@ DB 1.DBX 16.0 REAL 1  ->  Sensor_value
 ```
 Follow these steps:
 
-1. Open `special_cases.py`.
+1. Open `plc_mapping.py`.
 
-2. Under `CASE_SETS`, add a new PLC name and its variables. Example:
+2. Under `PLC_MAPPINGS`, add a new PLC name and its variables. Example:
 
 
 ``` bash
-CASE_SETS = {
+PLC_MAPPINGS = {
     "rk3_anlage": {
         "DB 1.DBX 0.0 WORD 1":  ("Außentemperatur",   0.1, "°C"),
         "DB 1.DBX 2.0 WORD 1":  ("Verbrauchertank",   0.1, "°C"),
@@ -186,17 +186,17 @@ CASE_SETS = {
     },
 }
 ```
-Template for adding new PLC cases:
+Template for adding new PLC mapping:
 ``` bash
  "PLC_NAME": {
      "Address": ("Label", scale, "Unit"),
  }
 ```
 
-3. Update `start.sh` to include the argument: 
+3. Update `sniffer_start.sh` to include the argument `--mapping new_plc`: 
 
 ``` bash
---case new_plc
+python3 main.py --live --debug --opcua-endpoint tcp.opc://192.168.2.5:5000/S7Comm-monitoring/server/ --iface 1 --mapping new_plc
 ```
 4. Rebuild the Docker image. 
 
