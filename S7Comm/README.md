@@ -198,6 +198,11 @@ Template for adding new PLC mapping:
 ``` bash
 python3 main.py --live --debug --opcua-endpoint tcp.opc://192.168.2.5:5000/S7Comm-monitoring/server/ --iface 1 --mapping new_plc
 ```
-4. Rebuild the Docker image. 
-
-5. Rerun the sniffer.
+4. Build the Docker image. 
+``` bash
+sudo docker build -t s7comm .
+```
+5. Run the sniffer.
+``` bash
+sudo docker run -it   --network host   --cap-add=NET_ADMIN   --cap-add=NET_RAW s7comm
+```
