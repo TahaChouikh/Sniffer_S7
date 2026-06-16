@@ -4,40 +4,7 @@ This project monitors **S7Comm communication** and forwards the extracted values
 
 ------------------------------------------------------------------------
 
-# Setup Guide
-
-## 1. Get the IP Addresses
-
-First, determine the **IP addresses of the PLC and the HMI** using Tia Portal or Wireshark.
-
-------------------------------------------------------------------------
-
-## 2. Configure the IoT Device Network
-The **IoT device IP address must be in the same subnet as the PLC and HMI**; otherwise, traffic cannot be monitored
-
-
-1. Open the network configuration
-
-``` bash
-sudo nano /etc/dhcpcd.conf
-```
-
-2. If an interface configuration already exists, modify the static IP address. Otherwise, scroll to the bottom of the file and add the following lines with the new IP address:
-
-``` bash
-interface eth0
-static ip_address=192.168.1.50/24
-```
-
-3. Save the changes then reboot:
-
-``` bash
-sudo reboot
-```
-
-------------------------------------------------------------------------
-
-## 3. Navigate to the Project Directory
+## 1. Navigate to the Project Directory
 
 ``` bash
 cd S7-Sniffer/s7comm_sniffer
@@ -45,7 +12,7 @@ cd S7-Sniffer/s7comm_sniffer
 
 ------------------------------------------------------------------------
 
-## 4. Build the Docker Image
+## 2. Build the Docker Image
 
 ``` bash
 sudo docker build -t s7comm .
@@ -55,7 +22,7 @@ Rebuild the Docker image **after every change to the project files**.
 
 ------------------------------------------------------------------------
 
-## 5. Check Available Network Interfaces
+## 3. Check Available Network Interfaces
 
 Run the container with a shell:
 
@@ -89,7 +56,7 @@ exit
 
 ------------------------------------------------------------------------
 
-## 6. Configure start.sh
+## 4. Configure start.sh
 
 1. Open the file `sniffer_start.sh`. 
 
@@ -116,7 +83,7 @@ You can add other arguments as needed. The available arguments are:
 ```
 ------------------------------------------------------------------------
 
-## 7. Build the Docker Image
+## 5. Build the Docker Image
 
 ``` bash
 sudo docker build -t s7comm .
@@ -127,7 +94,7 @@ Rebuild the Docker image **after every change to the project files**.
 ------------------------------------------------------------------------
 
 
-## 8. Run the Sniffer
+## 6. Run the Sniffer
 
 ``` bash
 sudo docker run -it   --network host   --cap-add=NET_ADMIN   --cap-add=NET_RAW s7comm
@@ -152,7 +119,7 @@ ITEM    NAME                       STATUS      VALUE
 8       DB 1.DBX 14.0 INT 1        Success     15                  
 ```
 ----------------------------------------------------------------------
-## 9. Map Values to Names
+## 7. Map Values to Names
 To map values to specific names or variables, use the **current variable addresses**.
 
 For example, to map: 
